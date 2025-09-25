@@ -1,23 +1,24 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database"; // Connection à la base de données
 import { Author } from "./author.model";
+import {AuthorDTO} from "../dto/author.dto";
 
 export interface BookAttributes {
-  id: number;
+  id?: number;
   title: string;
   publishYear: number;
-  authorId: number;
+  authorId?: number;
   isbn: string;
-  author?: Author;
+  author?: AuthorDTO;
 }
 
 export class Book extends Model<BookAttributes> implements BookAttributes {
   public id!: number;
   public title!: string;
   public publishYear!: number;
-  public authorId!: number;
+  public authorId?: number;
   public isbn!: string;
-  public author?: Author;
+  public author?: AuthorDTO;
 }
 
 Book.init(

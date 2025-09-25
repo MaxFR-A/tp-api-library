@@ -1,4 +1,4 @@
-import { AuthorDTO } from "./author.dto";
+import {AuthorDTO} from "./author.dto";
 
 export interface BookDTO {
   id?: number;

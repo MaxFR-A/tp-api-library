@@ -2,6 +2,9 @@ import { Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch } from "t
 import { authorService } from "../services/author.service";
 import { AuthorDTO } from "../dto/author.dto";
 import { Author } from "../models/author.model";
+import { CustomError } from "../middlewares/errorHandler";
+import {bookService} from "../services/book.service";
+import {BookDTO} from "../dto/book.dto";
 
 @Route("authors")
 @Tags("Authors")
@@ -15,7 +18,13 @@ export class AuthorController extends Controller {
   // Récupère un auteur par ID
   @Get("{id}")
   public async getAuthorById(@Path() id: number): Promise<AuthorDTO | null> {
-    return authorService.getAuthorById(id);
+        const author: Author | null = await authorService.getAuthorById(id);
+        if (!author) {
+            let error: CustomError = new Error("Author not found");
+            error.status = 404;
+            throw error;
+        }
+      return author;
   }
 
   // Crée un nouvel auteur
@@ -40,6 +49,25 @@ export class AuthorController extends Controller {
     @Body() requestBody: AuthorDTO
   ): Promise<AuthorDTO | null> {
     const { firstName, lastName } = requestBody;
-    return authorService.updateAuthor(id, firstName, lastName);
+    const author: Author | null = await authorService.updateAuthor(id, firstName, lastName);
+    if (!author) {
+      let error: CustomError = new Error("Author not found");
+        error.status = 404;
+        throw error;
+    }
+    return author;
   }
+
+    // Récupère les livres de l'auteur par ID
+    @Get("{id}/books")
+    public async getAuthorBooksById(@Path() id: number): Promise<BookDTO[] | null> {
+        let author: Author | null = await authorService.getAuthorById(id);
+        if (!author) {
+            let error: CustomError = new Error("Author not found");
+            error.status = 404;
+            throw error;
+        }
+
+        return bookService.getBooksByAuthor(author);
+    }
 }
