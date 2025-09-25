@@ -2,6 +2,9 @@
 
 `pnpm install`
 
+## JWT
+Il vous faut générer un Secret. Copier le fichier .env.dist en .env et en mettant votre secret.
+
 ## Génération du swagger
 
 `pnpm generate`
