@@ -97,7 +97,7 @@
 		"contact": {}
 	},
 	"paths": {
-		"/bookCopys": {
+		"/book-copies": {
 			"get": {
 				"operationId": "GetAllBookCopys",
 				"responses": {
@@ -116,7 +116,7 @@
 					}
 				},
 				"tags": [
-					"BookCopys"
+					"Book-copies"
 				],
 				"security": [],
 				"parameters": []
@@ -136,7 +136,7 @@
 					}
 				},
 				"tags": [
-					"BookCopys"
+					"Book-copies"
 				],
 				"security": [],
 				"parameters": [],
@@ -152,7 +152,7 @@
 				}
 			}
 		},
-		"/bookCopys/{id}": {
+		"/book-copies/{id}": {
 			"get": {
 				"operationId": "GetBookCopyById",
 				"responses": {
@@ -173,7 +173,7 @@
 					}
 				},
 				"tags": [
-					"BookCopys"
+					"Book-copies"
 				],
 				"security": [],
 				"parameters": [
@@ -208,7 +208,7 @@
 					}
 				},
 				"tags": [
-					"BookCopys"
+					"Book-copies"
 				],
 				"security": [],
 				"parameters": [
@@ -241,7 +241,7 @@
 					}
 				},
 				"tags": [
-					"BookCopys"
+					"Book-copies"
 				],
 				"security": [],
 				"parameters": [

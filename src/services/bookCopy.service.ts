@@ -1,4 +1,4 @@
-import { BookCopy } from "../models/bookCopy.model";
+import {BookCopy} from "../models/bookCopy.model";
 import {Book} from "../models/book.model";
 import {BookDTO} from "../dto/book.dto";
 
@@ -19,7 +19,7 @@ export class BookCopyService {
 
     // Récupère une ou plusieurs copie(s) de livre par l'ID d'un livre
     public async getBookCopysByBookId(id: number): Promise<BookCopy[] | null> {
-        return BookCopy.findAll({ where: { bookId: id } });
+        return BookCopy.findAll({where: {bookId: id}});
     }
 
     // Crée une nouvelle copie de livre
@@ -28,10 +28,12 @@ export class BookCopyService {
         state: number,
         book: BookDTO | undefined,
     ): Promise<BookCopy> {
-        return BookCopy.create({bookId: book?.id,
+        return BookCopy.create({
+            bookId: book?.id,
             available: available,
             state: state,
-            book: book});
+            book: book
+        });
     }
 
     // Met à jour une copie de livre
@@ -62,6 +64,5 @@ export class BookCopyService {
         }
     }
 }
-
 
 export const bookCopyService = new BookCopyService();

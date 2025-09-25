@@ -1,18 +1,18 @@
-import { Author } from "../models/author.model";
-import { Book } from "../models/book.model";
+import {Author} from "../models/author.model";
+import {Book} from "../models/book.model";
 import {AuthorDTO} from "../dto/author.dto";
 import {bookCopyService} from "./bookCopy.service";
 import {CustomError} from "../middlewares/errorHandler";
 
 export class BookService {
-  public async getAllBooks(): Promise<Book[]> {
-    return Book.findAll({
-        include: [{
-            model: Author,
-            as: 'author'
-        }]
-    });
-  }
+    public async getAllBooks(): Promise<Book[]> {
+        return Book.findAll({
+            include: [{
+                model: Author,
+                as: 'author'
+            }]
+        });
+    }
 
     // Récupère un livre par ID
     public async getBookById(id: number): Promise<Book | null> {
@@ -21,7 +21,7 @@ export class BookService {
 
     // Récupère les livres par auteur
     public async getBooksByAuthor(author: Author): Promise<Book[] | null> {
-        return Book.findAll({ where: { authorId: author.id } });
+        return Book.findAll({where: {authorId: author.id}});
     }
 
     // Crée un nouveau livre
@@ -31,11 +31,13 @@ export class BookService {
         author: AuthorDTO | undefined,
         isbn: string
     ): Promise<Book> {
-        return Book.create({title: title,
+        return Book.create({
+            title: title,
             publishYear: publishYear,
             author: author,
             isbn: isbn,
-            authorId: author?.id});
+            authorId: author?.id
+        });
     }
 
     // Met à jour un livre
@@ -72,6 +74,5 @@ export class BookService {
         }
     }
 }
-
 
 export const bookService = new BookService();

@@ -1,5 +1,5 @@
 export interface AuthorDTO {
-  id?: number;
-  firstName: string;
-  lastName: string;
+    id?: number;
+    firstName: string;
+    lastName: string;
 }

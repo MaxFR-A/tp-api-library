@@ -1,11 +1,11 @@
 import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Tags} from "tsoa";
-import { BookCopyDTO } from "../dto/bookCopy.dto";
-import { bookCopyService } from "../services/bookCopy.service";
+import {BookCopyDTO} from "../dto/bookCopy.dto";
+import {bookCopyService} from "../services/bookCopy.service";
 import {CustomError} from "../middlewares/errorHandler";
-import { BookCopy } from "../models/bookCopy.model";
+import {BookCopy} from "../models/bookCopy.model";
 
-@Route("bookCopys")
-@Tags("BookCopys")
+@Route("book-copies")
+@Tags("Book-copies")
 export class BookCopyController extends Controller {
     @Get("/")
     public async getAllBookCopys(): Promise<BookCopyDTO[]> {
@@ -29,9 +29,11 @@ export class BookCopyController extends Controller {
     public async createBookCopy(
         @Body() requestBody: BookCopyDTO
     ): Promise<BookCopyDTO> {
-        const {available,
+        const {
+            available,
             state,
-            book } = requestBody;
+            book
+        } = requestBody;
         return bookCopyService.createBookCopy(available, state, book);
     }
 
@@ -41,7 +43,7 @@ export class BookCopyController extends Controller {
         @Path() id: number,
         @Body() requestBody: BookCopyDTO
     ): Promise<BookCopyDTO | null> {
-        const { bookId, available, state } = requestBody;
+        const {bookId, available, state} = requestBody;
         const bookCopy: BookCopy | null = await bookCopyService.updateBookCopy(id, bookId, available, state);
         if (!bookCopy) {
             let error: CustomError = new Error("BookCopy not found");

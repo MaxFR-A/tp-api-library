@@ -1,7 +1,7 @@
-import { Model, DataTypes } from "sequelize";
+import {Model, DataTypes} from "sequelize";
 import sequelize from "../config/database"; // Connection à la base de données
-import { BookDTO } from "../dto/book.dto";
-import { Book } from "./book.model";
+import {BookDTO} from "../dto/book.dto";
+import {Book} from "./book.model";
 
 export interface BookCopyAttributes {
     id?: number;
@@ -47,3 +47,8 @@ BookCopy.init(
 );
 
 BookCopy.belongsTo(Book, { foreignKey: "bookId", as: "book" });
+Book.hasMany(BookCopy, {
+    foreignKey: "book_id",
+    as: "copys",
+    sourceKey: "id",
+})

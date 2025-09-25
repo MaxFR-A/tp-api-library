@@ -69,7 +69,7 @@ export function RegisterRoutes(app: Router) {
     
         const argsBookCopyController_getAllBookCopys: Record<string, TsoaRoute.ParameterSchema> = {
         };
-        app.get('/bookCopys',
+        app.get('/book-copies',
             ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
             ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.getAllBookCopys)),
 
@@ -99,7 +99,7 @@ export function RegisterRoutes(app: Router) {
         const argsBookCopyController_getBookCopyById: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.get('/bookCopys/:id',
+        app.get('/book-copies/:id',
             ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
             ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.getBookCopyById)),
 
@@ -129,7 +129,7 @@ export function RegisterRoutes(app: Router) {
         const argsBookCopyController_createBookCopy: Record<string, TsoaRoute.ParameterSchema> = {
                 requestBody: {"in":"body","name":"requestBody","required":true,"ref":"BookCopyDTO"},
         };
-        app.post('/bookCopys',
+        app.post('/book-copies',
             ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
             ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.createBookCopy)),
 
@@ -160,7 +160,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
                 requestBody: {"in":"body","name":"requestBody","required":true,"ref":"BookCopyDTO"},
         };
-        app.patch('/bookCopys/:id',
+        app.patch('/book-copies/:id',
             ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
             ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.updateBookCopy)),
 
@@ -190,7 +190,7 @@ export function RegisterRoutes(app: Router) {
         const argsBookCopyController_deleteBookCopy: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.delete('/bookCopys/:id',
+        app.delete('/book-copies/:id',
             ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
             ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.deleteBookCopy)),
 
