@@ -1,19 +1,22 @@
-import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Tags} from "tsoa";
+import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Security, Tags} from "tsoa";
 import {BookCopyDTO} from "../dto/bookCopy.dto";
 import {bookCopyService} from "../services/bookCopy.service";
 import {CustomError} from "../middlewares/errorHandler";
 import {BookCopy} from "../models/bookCopy.model";
 
 @Route("book-copies")
+@Security('jwt', ['admin', 'bookCopys'])
 @Tags("Book-copies")
 export class BookCopyController extends Controller {
     @Get("/")
+    @Security('jwt', ['admin', 'bookCopys', 'read', 'bookCopys:read'])
     public async getAllBookCopys(): Promise<BookCopyDTO[]> {
         return bookCopyService.getAllBookCopys();
     }
 
     // Récupère une copie de livre par ID
     @Get("/{id}")
+    @Security('jwt', ['admin', 'bookCopys', 'read', 'bookCopys:read'])
     public async getBookCopyById(@Path() id: number): Promise<BookCopyDTO | null> {
         const bookCopy: BookCopy | null = await bookCopyService.getBookCopyById(id);
         if (!bookCopy) {
@@ -26,6 +29,7 @@ export class BookCopyController extends Controller {
 
     // Crée une nouvelle copie de livre
     @Post("/")
+    @Security('jwt', ['admin', 'bookCopys', 'write', 'bookCopys:write'])
     public async createBookCopy(
         @Body() requestBody: BookCopyDTO
     ): Promise<BookCopyDTO> {
@@ -39,6 +43,7 @@ export class BookCopyController extends Controller {
 
     // Met à jour une copie de livre par ID
     @Patch("{id}")
+    @Security('jwt', ['admin', 'bookCopys', 'update', 'bookCopys:update'])
     public async updateBookCopy(
         @Path() id: number,
         @Body() requestBody: BookCopyDTO
@@ -55,6 +60,7 @@ export class BookCopyController extends Controller {
 
     // Supprime une copie de livre par ID
     @Delete("{id}")
+    @Security('jwt', ['admin', 'bookCopys', 'delete', 'bookCopys:delete'])
     public async deleteBookCopy(@Path() id: number): Promise<void> {
         await bookCopyService.deleteBookCopy(id);
     }

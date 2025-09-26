@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch} from "tsoa";
+import {Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch, Security} from "tsoa";
 import {authorService} from "../services/author.service";
 import {AuthorDTO} from "../dto/author.dto";
 import {Author} from "../models/author.model";
@@ -7,16 +7,19 @@ import {bookService} from "../services/book.service";
 import {BookDTO} from "../dto/book.dto";
 
 @Route("authors")
+@Security('jwt', ['admin', 'author'])
 @Tags("Authors")
 export class AuthorController extends Controller {
     // Récupère tous les auteurs
     @Get("/")
+    @Security('jwt', ['admin', 'author', 'read', 'author:read'])
     public async getAllAuthors(): Promise<AuthorDTO[]> {
         return authorService.getAllAuthors();
     }
 
     // Récupère un auteur par ID
     @Get("{id}")
+    @Security('jwt', ['admin', 'author', 'read', 'author:read'])
     public async getAuthorById(@Path() id: number): Promise<AuthorDTO | null> {
         const author: Author | null = await authorService.getAuthorById(id);
         if (!author) {
@@ -29,6 +32,7 @@ export class AuthorController extends Controller {
 
     // Crée un nouvel auteur
     @Post("/")
+    @Security('jwt', ['admin', 'author', 'write', 'author:write'])
     public async createAuthor(
         @Body() requestBody: AuthorDTO
     ): Promise<AuthorDTO> {
@@ -37,6 +41,7 @@ export class AuthorController extends Controller {
     }
 
     // Supprime un auteur par ID
+    @Security('jwt', ['admin', 'author', 'delete', 'author:delete'])
     @Delete("{id}")
     public async deleteAuthor(@Path() id: number): Promise<void> {
         await authorService.deleteAuthor(id);
@@ -44,6 +49,7 @@ export class AuthorController extends Controller {
 
     // Met à jour un auteur par ID
     @Patch("{id}")
+    @Security('jwt', ['admin', 'author', 'update', 'author:update'])
     public async updateAuthor(
         @Path() id: number,
         @Body() requestBody: AuthorDTO
@@ -60,6 +66,7 @@ export class AuthorController extends Controller {
 
     // Récupère les livres de l'auteur par ID
     @Get("{id}/books")
+    @Security('jwt', ['admin', 'author', 'read', 'author:read'])
     public async getAuthorBooksById(@Path() id: number): Promise<BookDTO[] | null> {
         let author: Author | null = await authorService.getAuthorById(id);
         if (!author) {

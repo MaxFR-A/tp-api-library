@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8000;
 
 const app: Application = express();
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 app.use(express.json());
 app.use(morgan("tiny"));

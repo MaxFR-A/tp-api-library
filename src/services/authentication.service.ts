@@ -12,8 +12,9 @@ export class AuthenticationService {
             throw error;
         }
 
+        const payload = { username: user.username, role: user.role || 'user' };
         return jwt.sign(
-            {username: user.username},
+            payload,
             process.env.JWT_SECRET as string,
             {expiresIn: '1h'});
     }
